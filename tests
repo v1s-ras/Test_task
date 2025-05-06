@@ -1,0 +1,45 @@
+#include <gtest/gtest.h>
+#include <vector>
+#include <stdexcept>
+
+TEST(SumTwoSmallestNumbersTest, RegularCase) {
+    std::vector<int> numbers = {4, 0, 3, 19, 492, -10, 1};
+    EXPECT_EQ(sumTwoSmallestNumbers(numbers), -10);
+}
+
+TEST(SumTwoSmallestNumbersTest, AllPositiveNumbers) {
+    std::vector<int> numbers = {5, 8, 12, 18, 1};
+    EXPECT_EQ(sumTwoSmallestNumbers(numbers), 6);
+}
+
+TEST(SumTwoSmallestNumbersTest, NegativeNumbers) {
+    std::vector<int> numbers = {-5, -3, -10, -2};
+    EXPECT_EQ(sumTwoSmallestNumbers(numbers), -15);
+}
+
+TEST(SumTwoSmallestNumbersTest, SingleElementArray) {
+    std::vector<int> numbers = {1};
+    EXPECT_THROW(sumTwoSmallestNumbers(numbers), std::invalid_argument);
+}
+
+TEST(SumTwoSmallestNumbersTest, EmptyArray) {
+    std::vector<int> numbers;
+    EXPECT_THROW(sumTwoSmallestNumbers(numbers), std::invalid_argument);
+}
+
+TEST(SumTwoSmallestNumbersTest, DuplicateMinValues) {
+    std::vector<int> numbers = {1, 1, 2, 3};
+    EXPECT_EQ(sumTwoSmallestNumbers(numbers), 2);
+}
+
+TEST(SumTwoSmallestNumbersTest, LargeArray) {
+    std::vector<int> numbers(1000000, 1000); // Заполняем массив большими числами
+    numbers.push_back(-100);
+    numbers.push_back(-200);
+    EXPECT_EQ(sumTwoSmallestNumbers(numbers), -300);
+}
+
+int main(int argc, char **argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
